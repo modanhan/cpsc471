@@ -14,3 +14,6 @@ to start the server.
 this is the site: http://localhost:8000/polls/
 
 this is the admin stuff: http://127.0.0.1:8000/admin/
+
+
+References: macdhuibh from github, hwjp from stack overflow.
