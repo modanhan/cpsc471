@@ -19,10 +19,18 @@ from django.urls import include, path
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
+
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('rating/', include('rating.urls')),
     path('admin/', admin.site.urls),
 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', CreateView.as_view(
+            template_name='register.html',
+            form_class=UserCreationForm,
+            success_url='/'
+    )),
 ]
