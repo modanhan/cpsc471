@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
+    path('rating/', include('rating.urls')),
     path('admin/', admin.site.urls),
 
     path('accounts/', include('django.contrib.auth.urls')),
