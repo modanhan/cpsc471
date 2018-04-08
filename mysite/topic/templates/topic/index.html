@@ -1,0 +1,11 @@
+<h1> Topics </h1>
+
+{% if topics %}
+    <ul>
+    {% for c in topics %}
+    <li>{{c.name}}: {{c.desc}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topics are available.</p>
+{% endif %}

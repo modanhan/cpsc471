@@ -3,7 +3,7 @@
 {% if languages %}
     <ul>
     {% for c in languages %}
-    <li>{{c.name}} {{c.paradign}}</li>
+    <li>{{c.name}}, {{c.get_paradigm_display}}</li>
     {% endfor %}
     </ul>
 {% else %}

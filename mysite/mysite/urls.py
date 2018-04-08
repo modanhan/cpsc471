@@ -27,6 +27,7 @@ urlpatterns = [
     path('challenge/', include('challenge.urls')),
     path('user/', include('user.urls')),
     path('language/', include('language.urls')),
+    path('topic/', include('topic.urls')),
     
     path('admin/', admin.site.urls),
 
