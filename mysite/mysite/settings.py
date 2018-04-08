@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'challenge.apps.ChallengeConfig',
     'author.apps.AuthorConfig',
     'user.apps.UserConfig',
+    'language.apps.LanguageConfig',
+    'topic.apps.TopicConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
