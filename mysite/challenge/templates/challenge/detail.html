@@ -1,7 +1,20 @@
 {% if challenge %}
-<h1> {{ challenge.name }} </h1>
+<h1>Challenge: {{ challenge.name }} </h1>
 <p> {{ challenge.desc }}</p>
 <p> {{ challenge.difficulty }}</p>
+
+
+{% if topics %}
+<h2> Topics: </h2>
+    <ul>
+    {% for c, w in topics %}
+    <li>{{w}}x {{c}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topics are associated with this challenge.</p>
+{% endif %}
+
 {% else %}
     <p>No such challenge.</p>
 {% endif %}
