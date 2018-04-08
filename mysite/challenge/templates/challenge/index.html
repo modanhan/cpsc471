@@ -3,7 +3,7 @@
 {% if challenges %}
     <ul>
     {% for c in challenges %}
-    <li>{{ c.name }}</li>
+    <li><a href="{% url 'challenge:detail' c.id %}">{{ c.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
