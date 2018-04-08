@@ -6,4 +6,5 @@ app_name='challenge'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('<int:challenge_id>/', views.detail, name='detail'),
 ]

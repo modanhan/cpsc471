@@ -1,0 +1,7 @@
+{% if challenge %}
+<h1> {{ challenge.name }} </h1>
+<p> {{ challenge.desc }}</p>
+<p> {{ challenge.difficulty }}</p>
+{% else %}
+    <p>No such challenge.</p>
+{% endif %}
