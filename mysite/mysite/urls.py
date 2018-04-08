@@ -25,6 +25,7 @@ from django.contrib.auth.forms import UserCreationForm
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('challenge/', include('challenge.urls')),
+    path('user/', include('user.urls')),
     
     path('admin/', admin.site.urls),
 
@@ -32,6 +33,6 @@ urlpatterns = [
     path('register/', CreateView.as_view(
             template_name='register.html',
             form_class=UserCreationForm,
-            success_url='/'
+            success_url='user/me/',
     )),
 ]
