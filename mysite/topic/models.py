@@ -12,8 +12,8 @@ class Topic(models.Model):
         return self.name
 
 class ChallengeTopic(models.Model):
-    challenge=models.ManyToManyField(Challenge)
-    topic=models.ManyToManyField(Topic)
+    challenge=models.ManyToManyField(Challenge, related_name='challenge')
+    topic=models.ManyToManyField(Topic, related_name='topic')
     weight=models.FloatField()
 
 class TopicRating(models.Model):

@@ -26,7 +26,8 @@ def detail(request, challenge_id):
    
     topics = []
     for ct in challengeTopics:
-        topics.append((Topic.objects.get(pk=ct.id), ct.weight))
+        tp=ct.topic.all()[0]
+        topics.append((tp, ct.weight))
     context={
         'challenge':challenge,
         'language':language,
@@ -56,15 +57,22 @@ def submission(request, challenge_id):
             solve=Submission.objects.filter(user__id=request.user.id).filter(challenge__id=challenge_id).filter(result='AC')
 
             if not solve.exists():
-                ctopics=ChallengeTopic.objects.filter(challenge__id=c.id)
-                for ct in ctopics:
+                challengeTopics = ChallengeTopic.objects.filter(challenge__id=c.id)
+                for ct in challengeTopics:
                     t=Topic.objects.get(pk=ct.id)
-                    tr,created=TopicRating.objects.get_or_create(topic=t, user=user)
+                    tr,created=TopicRating.objects.get_or_create(topic=t, user=user, defaults={
+                        'rating':0,
+                        'timestamp':datetime.datetime.now(),})
+                    if created:
+                        tr.rating=0
                     tr.rating+=c.difficulty*ct.weight
                     tr.save()
 
             if not solve.filter(language__id=l.id).exists():
-                lr,created=LanguageRating.objects.get_or_create(language=l, user=user)
+                lr,created=LanguageRating.objects.get_or_create(language=l, user=user, defaults={'rating':0,
+                        'timestamp':datetime.datetime.now()})
+                if created:
+                    lr.rating=0
                 lr.rating+=c.difficulty
                 lr.save()
 
