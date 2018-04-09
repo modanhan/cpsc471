@@ -4,6 +4,11 @@ from .models import Challenge
 from django.shortcuts import render, get_object_or_404
 
 from topic.models import ChallengeTopic, Topic
+from submission.models import Submission
+from language.models import Language
+from django.contrib.auth.models import User
+
+import datetime
 
 # Create your views here.
 def index(request):
@@ -29,7 +34,22 @@ def detail(request, challenge_id):
 
 def submission(request, challenge_id):
     if request.method == 'POST':
-        search_id = request.POST.get('your_solution', None)
-        return HttpResponse(str(request.user.id)+str(search_id))
+        c=Challenge.objects.get(pk=challenge_id)
+        input = request.POST.get('your_solution', None)
+        user=User.objects.get(pk=request.user.id)
+        s=Submission()
+        s.challenge=c
+        l=Language.objects.all()[0]
+        s.language=l
+        s.user=user
+        s.timestamp=datetime.datetime.now()
+        if c.ans == input:
+            s.result='AC'
+            s.save()
+            return HttpResponse('You are right!')
+        else:
+            s.result='WA'
+            s.save()
+            return HttpResponse('You are wrong!')
     else:
         return HttpResponse("Something's wrong.")

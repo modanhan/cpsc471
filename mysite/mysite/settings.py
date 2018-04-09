@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'language.apps.LanguageConfig',
     'topic.apps.TopicConfig',
+    'submission.apps.SubmissionConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

@@ -4,6 +4,7 @@ from django.db import models
 class Challenge(models.Model):
     name = models.CharField(max_length=200)
     desc = models.CharField(max_length=200)
+    ans = models.CharField(max_length=200)
     difficulty = models.IntegerField()
 
     def __str__(self):
