@@ -1,3 +1,5 @@
+
+
 {% if challenge %}
 <h1>Challenge: {{ challenge.name }} </h1>
 <p> {{ challenge.desc }}</p>
@@ -14,6 +16,13 @@
 {% else %}
     <p>No topics are associated with this challenge.</p>
 {% endif %}
+
+<form action="submission/" method="post">
+    {% csrf_token %}
+    <label for="your_solution">Your Solution: </label>
+    <input id="your_solution" type="text" name="your_solution" value="{{ current_name }}">
+    <input type="submit" value="OK">
+</form>
 
 {% else %}
     <p>No such challenge.</p>

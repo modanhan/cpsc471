@@ -26,3 +26,10 @@ def detail(request, challenge_id):
         'topics':topics
     }
     return render(request,'challenge/detail.html',context)
+
+def submission(request, challenge_id):
+    if request.method == 'POST':
+        search_id = request.POST.get('your_solution', None)
+        return HttpResponse(str(request.user.id)+str(search_id))
+    else:
+        return HttpResponse("Something's wrong.")
