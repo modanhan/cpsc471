@@ -22,12 +22,14 @@ def detail(request, challenge_id):
     challenge = get_object_or_404(Challenge, pk=challenge_id)
     challengeTopics = ChallengeTopic.objects.filter(challenge__id=challenge.id)
 
+    language=Language.objects.all()
    
     topics = []
     for ct in challengeTopics:
         topics.append((Topic.objects.get(pk=ct.id), ct.weight))
     context={
         'challenge':challenge,
+        'language':language,
         'topics':topics
     }
     return render(request,'challenge/detail.html',context)
@@ -36,12 +38,17 @@ def submission(request, challenge_id):
     if request.user.id == None:
         return HttpResponse("Please log in.")
     if request.method == 'POST':
+        print(type(request.POST))
+        try:
+            requestpost = request.POST['choice']
+        except:
+            return HttpResponse("Please select a language.")
         c=Challenge.objects.get(pk=challenge_id)
         input = request.POST.get('your_solution', None)
         user=User.objects.get(pk=request.user.id)
         s=Submission()
         s.challenge=c
-        l=Language.objects.all()[0]
+        l=Language.objects.get(pk=request.POST['choice'])
         s.language=l
         s.user=user
         s.timestamp=datetime.datetime.now()

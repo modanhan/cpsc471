@@ -3,7 +3,7 @@
 {% if challenge %}
 <h1>Challenge: {{ challenge.name }} </h1>
 <p> {{ challenge.desc }}</p>
-<p> {{ challenge.difficulty }}</p>
+<p> Difficluty: {{ challenge.difficulty }}</p>
 
 
 {% if topics %}
@@ -19,6 +19,11 @@
 
 <form action="submission/" method="post">
     {% csrf_token %}
+    {% for l in language %}
+        <input type="radio" name="choice" id="choice{{ l.id }}" value="{{ l.id }}" />
+        <label for="choice{{ forloop.counter }}">{{ l.name }}</label><br />
+    {% endfor %}
+    
     <label for="your_solution">Your Solution: </label>
     <input id="your_solution" type="text" name="your_solution" value="{{ current_name }}">
     <input type="submit" value="OK">
