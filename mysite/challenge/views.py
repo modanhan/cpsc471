@@ -59,7 +59,7 @@ def submission(request, challenge_id):
             if not solve.exists():
                 challengeTopics = ChallengeTopic.objects.filter(challenge__id=c.id)
                 for ct in challengeTopics:
-                    t=Topic.objects.get(pk=ct.id)
+                    t=ct.topic.all()[0]
                     tr,created=TopicRating.objects.get_or_create(topic=t, user=user, defaults={
                         'rating':0,
                         'timestamp':datetime.datetime.now(),})
