@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from .models import Challenge
 from django.shortcuts import render, get_object_or_404
 
-from topic.models import ChallengeTopic, Topic
+from topic.models import ChallengeTopic, Topic, TopicRating
 from submission.models import Submission
-from language.models import Language
+from language.models import Language, LanguageRating
 from django.contrib.auth.models import User
 
 import datetime
@@ -36,13 +36,12 @@ def detail(request, challenge_id):
 
 def submission(request, challenge_id):
     if request.user.id == None:
-        return HttpResponse("Please log in.")
+        return HttpResponse('Please log in.')
     if request.method == 'POST':
-        print(type(request.POST))
         try:
             requestpost = request.POST['choice']
         except:
-            return HttpResponse("Please select a language.")
+            return HttpResponse('Please select a language.')
         c=Challenge.objects.get(pk=challenge_id)
         input = request.POST.get('your_solution', None)
         user=User.objects.get(pk=request.user.id)
@@ -53,6 +52,22 @@ def submission(request, challenge_id):
         s.user=user
         s.timestamp=datetime.datetime.now()
         if c.ans == input:
+            # check if never solved
+            solve=Submission.objects.filter(user__id=request.user.id).filter(challenge__id=challenge_id).filter(result='AC')
+
+            if not solve.exists():
+                ctopics=ChallengeTopic.objects.filter(challenge__id=c.id)
+                for ct in ctopics:
+                    t=Topic.objects.get(pk=ct.id)
+                    tr,created=TopicRating.objects.get_or_create(topic=t, user=user)
+                    tr.rating+=c.difficulty*ct.weight
+                    tr.save()
+
+            if not solve.filter(language__id=l.id).exists():
+                lr,created=LanguageRating.objects.get_or_create(language=l, user=user)
+                lr.rating+=c.difficulty
+                lr.save()
+
             s.result='AC'
             s.save()
             return HttpResponse('You are right!')
