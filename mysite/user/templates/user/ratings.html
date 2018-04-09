@@ -1,0 +1,21 @@
+<h1> {{user.username}}'s Ratings </h1>
+
+{% if topicRatings %}
+    <ul>
+    {% for t,r,tm in topicRatings %}
+    <li>{{t}} rating: {{r}}, last updated: {{tm}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topic ratings are available.</p>
+{% endif %}
+
+{% if languageRatings %}
+    <ul>
+    {% for t,r,tm in languageRatings %}
+    <li>{{t}} rating: {{r}}, last updated: {{tm}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No language ratings are available.</p>
+{% endif %}

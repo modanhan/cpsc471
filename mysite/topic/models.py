@@ -1,6 +1,7 @@
 from django.db import models
 
 from challenge.models import Challenge
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Topic(models.Model):
@@ -14,3 +15,9 @@ class ChallengeTopic(models.Model):
     challenge=models.ManyToManyField(Challenge)
     topic=models.ManyToManyField(Topic)
     weight=models.FloatField()
+
+class TopicRating(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    topic=models.ForeignKey(Topic, on_delete=models.CASCADE)
+    rating=models.IntegerField()
+    timestamp=models.DateTimeField('timestamp')

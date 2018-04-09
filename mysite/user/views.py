@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from author.models import Author
+from topic.models import TopicRating, Topic
+from language.models import Language, LanguageRating
 
 # Create your views here.
 def index(request):
@@ -39,3 +41,25 @@ def authors(request, user_id):
         'challenges':challenges,
     }
     return render(request,'user/authors.html',context)
+
+def ratings(request, user_id):
+    user=User.objects.get(pk=user_id)
+    
+    tr=TopicRating.objects.filter(user__id=user_id)
+    topicRatings = []
+    for a in tr:
+        topicname=Topic.objects.get(pk=a.topic.id).name
+        topicRatings.append((topicname, a.rating, a.timestamp))
+
+    lr=LanguageRating.objects.filter(user__id=user_id)
+    languageRatings = []
+    for a in lr:
+        lname=Language.objects.get(pk=a.language.id).name
+        languageRatings.append((lname, a.rating, a.timestamp))
+
+    context={
+        'user':user,
+        'topicRatings':topicRatings,
+        'languageRatings':languageRatings,
+    }
+    return render(request,'user/ratings.html',context)
