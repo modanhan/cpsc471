@@ -10,4 +10,5 @@ urlpatterns = [
     path('me/', views.me, name='me'),
     path('<int:user_id>/authors/', views.authors, name='authors'),
     path('<int:user_id>/ratings/', views.ratings, name='ratings'),
+    path('<int:user_id>/submissions/', views.submissions, name='submissions'),
 ]

@@ -1,0 +1,11 @@
+<h1> {{user.username}}'s Challenges </h1>
+
+{% if submissions %}
+    <ul>
+    {% for c in submissions %}
+    <li><a href="/challenge/{{c.challenge.id}}">{{ c.challenge }}</a>, {{c.language}}, {{c.get_result_display}}, {{c.timestamp}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No submissions are available.</p>
+{% endif %}

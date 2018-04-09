@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from author.models import Author
 from topic.models import TopicRating, Topic
 from language.models import Language, LanguageRating
+from submission.models import Submission
 
 # Create your views here.
 def index(request):
@@ -63,3 +64,12 @@ def ratings(request, user_id):
         'languageRatings':languageRatings,
     }
     return render(request,'user/ratings.html',context)
+
+def submissions(request, user_id):
+    user=User.objects.get(pk=user_id)
+    submissions=Submission.objects.filter(user__id=user_id)
+    context={
+        'user':user,
+        'submissions':submissions,
+    }
+    return render(request,'user/submissions.html',context)

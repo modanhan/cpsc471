@@ -33,6 +33,8 @@ def detail(request, challenge_id):
     return render(request,'challenge/detail.html',context)
 
 def submission(request, challenge_id):
+    if request.user.id == None:
+        return HttpResponse("Please log in.")
     if request.method == 'POST':
         c=Challenge.objects.get(pk=challenge_id)
         input = request.POST.get('your_solution', None)
