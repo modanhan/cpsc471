@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'home.apps.HomeConfig',
     'polls.apps.PollsConfig',
     'challenge.apps.ChallengeConfig',
     'author.apps.AuthorConfig',
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'language.apps.LanguageConfig',
     'topic.apps.TopicConfig',
     'submission.apps.SubmissionConfig',
+    'home.apps.HomeConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
