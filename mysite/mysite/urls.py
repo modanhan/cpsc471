@@ -22,12 +22,16 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 
+
+
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('challenge/', include('challenge.urls')),
     path('user/', include('user.urls')),
     path('language/', include('language.urls')),
     path('topic/', include('topic.urls')),
+    path('home/', include('home.urls')),
+
     
     path('admin/', admin.site.urls),
 
@@ -35,6 +39,6 @@ urlpatterns = [
     path('register/', CreateView.as_view(
             template_name='register.html',
             form_class=UserCreationForm,
-            success_url='user/me/',
+            success_url='/home/',
     )),
 ]
