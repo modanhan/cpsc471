@@ -90,10 +90,15 @@ def submission(request, challenge_id):
         return HttpResponse("Something's wrong.")
 
 def create(request):
+    topics = Topic.objects.all()
     if request.user.id == None:
         return HttpResponse('please login')
     if request.method == 'POST':
+        requestpost = request.POST.getlist('choice')
+        requestweight = request.POST.getlist('weight', default=0)
+
         form = ChallengeForm(request.POST)
+
         if form.is_valid():
             challenge = form.save(commit=False)
             challenge.save()
@@ -104,10 +109,16 @@ def create(request):
             a.timestamp = datetime.datetime.now()
             a.save()
 
+            ct = ChallengeTopic()
+            ct.challenge.set(challenge.id)
+            ct.topic = requestpost
+            ct.weight = requestweight
+            ct.save()
+
             return HttpResponse(request.user.id)
     else:
         form = ChallengeForm()
-        return render(request, 'challenge/create.html', {'form':form})
+        return render(request, 'challenge/create.html', {'form':form, 'topics':topics})
 
 def thanks(request):
     return render(request, 'challenge/thanks.html', {})
