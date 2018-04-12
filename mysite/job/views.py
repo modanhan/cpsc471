@@ -16,11 +16,33 @@ def index(request):
 
 def detail(request, job_id):
     job=Job.objects.get(pk=job_id)
+    tss=job.jobtopicskill_set.all()
+    lss=job.joblanguageskill_set.all()
+
+    tssview=[]
+    for ts in tss:
+        tssview.append((Topic.objects.get(pk=ts.topic_id), ts))
+    lssview=[]
+    for ls in lss:
+        lssview.append((Language.objects.get(pk=ls.language_id), ls))
+
 
     users=User.objects.all()
+#    for user in users:
+#        bool = True
+#        trs=user.topicrating_set.all()
+#        for ts in tss:
+#            if not trs.exists(ts):
+#                good=False
+#                break
+#            elif trs.get(topic_id=ts.topic_id).rating < ts.rating:
+#                good=False
+#                break
 
     context={
         'job':job,
+        'tss':tssview,
+        'lss':lssview,
         'users':users,
     }
     return render(request, 'job/detail.html',context)

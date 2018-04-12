@@ -7,6 +7,28 @@
 <p> Posted Date: {{ job.pubish_date }}</p>
 <p> Expiration Date: {{ job.expire_date }}</p>
 
+{% if tss %}
+<h2>Topic Requirements</h2>
+    <ul>
+    {% for t,c in tss %}
+    <li>{{ t.name }}: {{c.rating}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topic requirements.</p>
+{% endif %}
+
+{% if lss %}
+<h2>Language Requirements</h2>
+    <ul>
+    {% for l,c in lss %}
+    <li>{{ l.name }}: {{c.rating}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No language requirements.</p>
+{% endif %}
+
 <h2>Users who have enough skill for this job:</h2>
 {% if users %}
     <ul>
