@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
-from .models import Challenge
+from .models import Challenge, ChallengeForm
 from django.shortcuts import render, get_object_or_404
 
+from author.models import Author
 from topic.models import ChallengeTopic, Topic, TopicRating
 from submission.models import Submission
 from language.models import Language, LanguageRating
 from django.contrib.auth.models import User
+
 
 import datetime
 
@@ -85,3 +88,26 @@ def submission(request, challenge_id):
             return HttpResponse('You are wrong!')
     else:
         return HttpResponse("Something's wrong.")
+
+def create(request):
+    if request.user.id == None:
+        return HttpResponse('please login')
+    if request.method == 'POST':
+        form = ChallengeForm(request.POST)
+        if form.is_valid():
+            challenge = form.save(commit=False)
+            challenge.save()
+
+            a=Author()
+            a.user = request.user
+            a.challenge = challenge
+            a.timestamp = datetime.datetime.now()
+            a.save()
+
+            return HttpResponse(request.user.id)
+    else:
+        form = ChallengeForm()
+        return render(request, 'challenge/create.html', {'form':form})
+
+def thanks(request):
+    return render(request, 'challenge/thanks.html', {})

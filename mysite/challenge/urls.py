@@ -8,4 +8,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('<int:challenge_id>/', views.detail, name='detail'),
     path('<int:challenge_id>/submission/', views.submission, name='submission'),
+    path('create/', views.create, name='create'),
+    path('create/thanks/', views.thanks, name='thanks')
 ]

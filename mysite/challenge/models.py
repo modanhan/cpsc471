@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 # Create your models here.
 class Challenge(models.Model):
@@ -9,3 +10,8 @@ class Challenge(models.Model):
 
     def __str__(self):
         return self.name
+
+class ChallengeForm(ModelForm):
+    class Meta:
+        model = Challenge
+        fields = '__all__'

@@ -21,7 +21,7 @@
     {% csrf_token %}
     {% for l in language %}
         <input type="radio" name="choice" id="choice{{ l.id }}" value="{{ l.id }}" />
-        <label for="choice{{ forloop.counter }}">{{ l.name }}</label><br />
+        <label for="choice{{ forloop.counter }}">{{ l.name }}</label><br>
     {% endfor %}
     
     <label for="your_solution">Your Solution: </label>
