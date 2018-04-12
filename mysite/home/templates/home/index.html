@@ -5,11 +5,21 @@
 
     <body>
         <h1 >HOME PAGE</h1>
+        {% if user.id != None %}
+            <p> hello {{user.username}} </p>
+        {% else %}
+            <p> You are not logged in</p>
+        {% endif %}
         <table>
-            <tr>
-                <td><a href="/accounts/login/">LOGIN</a></td>
-            </tr>
-
+            {% if user.id == None %}
+                <tr>
+                    <td><a href="/accounts/login/">LOGIN</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td> <a href="/user/me/">YOUR PROFILE</a> </td>
+                </tr>
+            {% endif %}
             <tr>
                 <td> <a href="/register/">REGISTER</a> </td>
             </tr>
