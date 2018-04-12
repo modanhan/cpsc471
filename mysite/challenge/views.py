@@ -95,8 +95,9 @@ def create(request):
         return HttpResponse('please login')
     if request.method == 'POST':
         requestpost = request.POST.getlist('choice')
-        requestweight = request.POST.getlist('weight', default=0)
-
+        requestweight = request.POST.getlist('weight', default=[])
+    #    print(requestpost)
+    #    print(requestweight)
         form = ChallengeForm(request.POST)
 
         if form.is_valid():
@@ -112,10 +113,15 @@ def create(request):
                 a.save()
                 
                 for i in range(0, len(requestpost)):
+                    idx=int(requestpost[i])-1
+                    print(requestweight[idx])
+                    if len(requestweight[idx]) == 0 :
+                        continue
+
                     ct = ChallengeTopic()
                     ct.challenge = challenge
-                    ct.topic = Topic.objects.get(pk=requestpost[i])
-                    ct.weight = requestweight[i]
+                    ct.topic = Topic.objects.get(pk=idx+1)
+                    ct.weight = float(requestweight[idx])
                     ct.save()
 
                 return redirect('thanks/')
