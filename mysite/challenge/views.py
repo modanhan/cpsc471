@@ -81,7 +81,7 @@ def submission(request, challenge_id):
 
             s.result='AC'
             s.save()
-            return HttpResponse('You are right!')
+            return redirect('correct/')
         else:
             s.result='WA'
             s.save()
@@ -127,3 +127,6 @@ def create(request):
 
 def thanks(request):
     return render(request, 'challenge/thanks.html', {})
+
+def correct(request, challenge_id):
+    return render(request, 'challenge/correct.html', {})
