@@ -7,6 +7,17 @@
 <p> Posted Date: {{ job.pubish_date }}</p>
 <p> Expiration Date: {{ job.expire_date }}</p>
 
+<h2>Users who have enough skill for this job:</h2>
+{% if users %}
+    <ul>
+    {% for c in users %}
+    <li><a href="/user/{{c.id}}">{{ c.username }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No users are available.</p>
+{% endif %}
+
 {% else %}
 <p>No such job.</p>
 {% endif %}
