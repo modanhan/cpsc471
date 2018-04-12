@@ -5,6 +5,8 @@ from .models import Job
 from django.contrib.auth.models import User
 from topic.models import Topic, TopicRating
 from language.models import Language, LanguageRating
+from django.db.models import Q
+import datetime
 
 # Create your views here.
 def index(request):
@@ -13,6 +15,14 @@ def index(request):
         'jobs':jobs,
     }
     return render(request,'job/index.html',context)
+
+def open(request):
+    now = datetime.datetime.now()
+    jobs=Job.objects.filter(openings__gt=0).filter(Q(expire_date__gte=now.date()))
+    context={
+        'jobs':jobs,
+    }
+    return render(request,'job/open.html',context)
 
 def hasRequirement(user, tss,lss):
     good = True
@@ -57,11 +67,19 @@ def detail(request, job_id):
     if not request.user == None:
         qs= 'You are qualified!' if hasRequirement(request.user,tss,lss) else 'You are not qualified.'
 
+    status='Open!'
+    if job.openings == 0:
+        status='Closed.'
+    now = datetime.datetime.now()
+    if job.expire_date.date() < now.date():
+        status='Expired.'
+
     context={
         'job':job,
         'tss':tssview,
         'lss':lssview,
         'users':userviews,
         'qs':qs,
+        'status':status,
     }
     return render(request, 'job/detail.html',context)

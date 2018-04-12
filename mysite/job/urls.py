@@ -13,5 +13,6 @@ app_name='job'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('open/', views.open, name='open'),
     path('<int:job_id>/', views.detail, name='detail'),
 ]
