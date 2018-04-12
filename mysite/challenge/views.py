@@ -101,22 +101,26 @@ def create(request):
 
         if form.is_valid():
             challenge = form.save(commit=False)
-            challenge.save()
+            exist = Challenge.objects.filter(name=challenge.name)
+            if not exist.exists():
+                challenge.save()
 
-            a=Author()
-            a.user = request.user
-            a.challenge = challenge
-            a.timestamp = datetime.datetime.now()
-            a.save()
-            
-            for i in range(0, len(requestpost)):
-                ct = ChallengeTopic()
-                ct.challenge = challenge
-                ct.topic = Topic.objects.get(pk=requestpost[i])
-                ct.weight = requestweight[i]
-                ct.save()
+                a=Author()
+                a.user = request.user
+                a.challenge = challenge
+                a.timestamp = datetime.datetime.now()
+                a.save()
+                
+                for i in range(0, len(requestpost)):
+                    ct = ChallengeTopic()
+                    ct.challenge = challenge
+                    ct.topic = Topic.objects.get(pk=requestpost[i])
+                    ct.weight = requestweight[i]
+                    ct.save()
 
-            return HttpResponse(request.user.id)
+                return redirect('thanks/')
+            else:
+                return HttpResponse('Challenge Name exists')
     else:
         form = ChallengeForm()
         return render(request, 'challenge/create.html', {'form':form, 'topics':topics})

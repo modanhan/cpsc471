@@ -15,14 +15,14 @@
                 <tr>
                     <td><a href="/accounts/login/">LOGIN</a></td>
                 </tr>
+                <tr>
+                        <td> <a href="/register/">REGISTER</a> </td>
+                </tr>
             {% else %}
                 <tr>
                     <td> <a href="/user/me/">YOUR PROFILE</a> </td>
                 </tr>
             {% endif %}
-            <tr>
-                <td> <a href="/register/">REGISTER</a> </td>
-            </tr>
 
             <tr>
                 <td> <a href="/challenge/">CHALLENGES</a> </td>
@@ -32,9 +32,11 @@
                 <td> <a href="/user/">USERS</a> </td>
             </tr>
 
-            <tr>
-                <td> <a href="/accounts/logout/">LOGOUT</a> </td>
-            </tr>
+            {% if user.id != None %}
+                <tr>
+                    <td> <a href="/accounts/logout/">LOGOUT</a> </td>
+                </tr>
+            {% endif %}
         </table>     
     </body>
 </html>
