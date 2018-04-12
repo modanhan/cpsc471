@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'submission.apps.SubmissionConfig',
     'home.apps.HomeConfig',
     'job.apps.JobConfig',
+    'company.apps.CompanyConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
