@@ -28,21 +28,32 @@ def detail(request, job_id):
 
 
     users=User.objects.all()
-#    for user in users:
-#        bool = True
-#        trs=user.topicrating_set.all()
-#        for ts in tss:
-#            if not trs.exists(ts):
-#                good=False
-#                break
-#            elif trs.get(topic_id=ts.topic_id).rating < ts.rating:
-#                good=False
-#                break
+    userviews=[]
+    for user in users:
+        good = True
+        trs=user.topicrating_set.all()
+        lrs=user.languagerating_set.all()
+        for ts in tss:
+            if not trs.filter(topic_id=ts.topic_id).exists():
+                good=False
+                break
+            elif trs.get(topic_id=ts.topic_id).rating < ts.rating:
+                good=False
+                break
+        for ls in lss:
+            if not lrs.filter(language_id=ls.language_id).exists():
+                good=False
+                break
+            elif lrs.get(language_id=ls.language_id).rating < ls.rating:
+                good=False
+                break
+        if good:
+            userviews.append(user)
 
     context={
         'job':job,
         'tss':tssview,
         'lss':lssview,
-        'users':users,
+        'users':userviews,
     }
     return render(request, 'job/detail.html',context)
