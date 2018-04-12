@@ -7,6 +7,7 @@ from topic.models import Topic, TopicRating
 from language.models import Language, LanguageRating
 from django.db.models import Q
 import datetime
+from company.models import Company
 
 # Create your views here.
 def index(request):
@@ -74,6 +75,8 @@ def detail(request, job_id):
     if job.expire_date.date() < now.date():
         status='Expired.'
 
+    cp=Company.objects.get(pk=job.company_id)
+
     context={
         'job':job,
         'tss':tssview,
@@ -81,5 +84,6 @@ def detail(request, job_id):
         'users':userviews,
         'qs':qs,
         'status':status,
+        'cp':cp,
     }
     return render(request, 'job/detail.html',context)
