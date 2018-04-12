@@ -1,0 +1,20 @@
+<h1> {{c.name}} </h1>
+
+<h2> About</h2>
+
+<p>{{c.desc}}</p>
+
+<h2> Hosted Jobs</h2>
+
+{% if js %}
+    <ul>
+    {% for j in js %}
+    <li><a href="/job/{{j.id}}">{{ j.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs are available from this company.</p>
+{% endif %}
+
+
+<a href="/home/">Click here to go back home.</a>

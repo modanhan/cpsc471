@@ -1,0 +1,49 @@
+{% if job %}
+<h1>Job: {{ job.name }} Status: {{status}} </h1>
+<p> {{ job.desc }}</p>
+
+
+
+<p> Posted Date: {{ job.pubish_date }}</p>
+<p> Expiration Date: {{ job.expire_date }}</p>
+
+{% if tss %}
+<h2>Topic Requirements</h2>
+    <ul>
+    {% for t,c in tss %}
+    <li>{{ t.name }}: {{c.rating}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topic requirements.</p>
+{% endif %}
+
+{% if lss %}
+<h2>Language Requirements</h2>
+    <ul>
+    {% for l,c in lss %}
+    <li>{{ l.name }}: {{c.rating}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No language requirements.</p>
+{% endif %}
+
+<h2>{{qs}}</h2>
+
+<h2>Users who have enough skill for this job:</h2>
+{% if users %}
+    <ul>
+    {% for c in users %}
+    <li><a href="/user/{{c.id}}">{{ c.username }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No users are available.</p>
+{% endif %}
+
+<p>This job is hosted by <a href="/company/{{cp.id}}">{{ cp.name }}</a></p>
+
+{% else %}
+<p>No such job.</p>
+{% endif %}

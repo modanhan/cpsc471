@@ -23,14 +23,14 @@ def index(request):
 
 def detail(request, challenge_id):
     challenge = get_object_or_404(Challenge, pk=challenge_id)
-    challengeTopics = ChallengeTopic.objects.filter(challenge__id=challenge.id)
+    challengeTopics = ChallengeTopic.objects.all().filter(challenge_id=challenge.id)
 
     language=Language.objects.all()
    
     topics = []
     for ct in challengeTopics:
-        tp=ct.topic.all()[0]
-        topics.append((tp, ct.weight))
+        topics.append((Topic.objects.get(pk=ct.topic_id) ,ct.weight))
+
     context={
         'challenge':challenge,
         'language':language,
@@ -60,9 +60,9 @@ def submission(request, challenge_id):
             solve=Submission.objects.filter(user__id=request.user.id).filter(challenge__id=challenge_id).filter(result='AC')
 
             if not solve.exists():
-                challengeTopics = ChallengeTopic.objects.filter(challenge__id=c.id)
+                challengeTopics = ChallengeTopic.objects.all().filter(challenge_id=c.id)
                 for ct in challengeTopics:
-                    t=ct.topic.all()[0]
+                    t=Topic.objects.get(pk=ct.topic_id)
                     tr,created=TopicRating.objects.get_or_create(topic=t, user=user, defaults={
                         'rating':0,
                         'timestamp':datetime.datetime.now(),})
@@ -108,12 +108,13 @@ def create(request):
             a.challenge = challenge
             a.timestamp = datetime.datetime.now()
             a.save()
-
-            ct = ChallengeTopic()
-            ct.challenge.set(challenge.id)
-            ct.topic = requestpost
-            ct.weight = requestweight
-            ct.save()
+            
+            for i in range(0, len(requestpost)):
+                ct = ChallengeTopic()
+                ct.challenge = challenge
+                ct.topic = Topic.objects.get(pk=requestpost[i])
+                ct.weight = requestweight[i]
+                ct.save()
 
             return HttpResponse(request.user.id)
     else:

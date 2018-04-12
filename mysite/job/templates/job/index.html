@@ -1,0 +1,15 @@
+<h1> Jobs </h1>
+
+<a href="/job/open/">Open Jobs Only</a>
+
+{% if jobs %}
+    <ul>
+    {% for c in jobs %}
+    <li><a href="{% url 'job:detail' c.id %}">{{ c.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs are available.</p>
+{% endif %}
+
+<a href="/home/">Click here to go back home.</a>
