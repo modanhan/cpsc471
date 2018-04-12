@@ -31,6 +31,7 @@ urlpatterns = [
     path('language/', include('language.urls')),
     path('topic/', include('topic.urls')),
     path('home/', include('home.urls')),
+    path('job/', include('job.urls')),
 
     
     path('admin/', admin.site.urls),

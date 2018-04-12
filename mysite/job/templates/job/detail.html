@@ -1,0 +1,12 @@
+{% if job %}
+<h1>Job: {{ job.name }} </h1>
+<p> {{ job.desc }}</p>
+
+
+
+<p> Posted Date: {{ job.pubish_date }}</p>
+<p> Expiration Date: {{ job.expire_date }}</p>
+
+{% else %}
+<p>No such job.</p>
+{% endif %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'topic.apps.TopicConfig',
     'submission.apps.SubmissionConfig',
     'home.apps.HomeConfig',
+    'job.apps.JobConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
