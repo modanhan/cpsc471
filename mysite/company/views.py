@@ -12,7 +12,9 @@ def index(request):
 
 def detail(request, company_id):
     c=Company.objects.get(pk=company_id)
+    js=c.job_set.all()
     context={
         'c':c,
+        'js':js,
     }
     return render(request,'company/detail.html',context)
