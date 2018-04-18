@@ -1,19 +1,25 @@
-# cpsc471
-cpsc 471 project
+# CPSC 471
+CPSC 471 Project
 
-start by installing python, django and sqlite, refer to stuff here https://www.djangoproject.com/start/
+## Requirements
 
-read the django tutorial if u want.
+Make sure Python3, Django and Sqlite are installed. Refer to https://www.djangoproject.com/start/ if there are any problems.
 
-run
+## Running the server
 
-python manage.py runserver
+Use command "python manage.py runserver".
 
-to start the server.
+## Using the application
 
-this is the site: http://localhost:8000/polls/
+Enter the url http://localhost:8000/home/ into your browser to start using the application.
 
-this is the admin stuff: http://127.0.0.1:8000/admin/
+Start by registering as a new user, log into your account, and then you can browse the website for all of its features.
+
+### Accessing the admin panel (for developing purposes only)
+
+Enter the url http://127.0.0.1:8000/admin/ into your browser.
 
 
-References: macdhuibh from github, hwjp from stack overflow.
+### References
+
+macdhuibh from github, hwjp from stack overflow. Official Django tutorials.
